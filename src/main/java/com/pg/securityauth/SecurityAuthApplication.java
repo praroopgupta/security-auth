@@ -19,6 +19,7 @@ public class SecurityAuthApplication {
 		SpringApplication.run(SecurityAuthApplication.class, args);
 	}
 
+	/**
 	@SuppressWarnings("deprecation")
 	@Bean
 	public CommandLineRunner addUserAndRoleDetails(UsersRepository users, RolesRepository roles) {
@@ -41,4 +42,5 @@ public class SecurityAuthApplication {
 			roles.saveAll(Arrays.asList(role1, role2, role3));
 		};
 	}
+	*/
 }
