@@ -23,7 +23,7 @@ public class JwtUtils {
 
     public String generateAccessToken(Users user) {
         return Jwts.builder()
-                .setSubject(String.format("%s", user.getUsername()))
+                .setSubject(user.getUsername())
                 .setIssuer("SecurityAuth")
                 .claim("roles", user.getRoles().toString())
                 .setIssuedAt(new Date())

@@ -86,9 +86,7 @@ public class JwtFilters extends OncePerRequestFilter {
             userDetails.addRole(new Roles(aRoleName));
         }
 
-        String[] jwtSubject = subject.split(",");
-
-        userDetails.setUsername(jwtSubject[0]);
+        userDetails.setUsername(subject);
 
         return userDetails;
     }
