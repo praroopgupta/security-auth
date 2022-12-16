@@ -1,19 +1,21 @@
 package com.pg.securityauth.model;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthRequest {
+public class ErrorResponse {
 
-    @NotNull
-    private String username;
-    @NotNull
-    private String password;
+    private String errorCode;
+    private String errorMessage;
+    private LocalDateTime timestamp;
+
+
 }

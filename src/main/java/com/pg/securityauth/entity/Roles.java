@@ -20,7 +20,15 @@ public class Roles {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Integer id;
 
     private String role;
+
+    public Roles(String roleName) {
+        this.role = roleName;
+    }
+    @Override
+    public String toString() {
+        return this.role;
+    }
 }

@@ -9,5 +9,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AuthResponse {
 
-    private final String token;
+    private final String access_token;
 }

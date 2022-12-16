@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Role;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 @SpringBootApplication
 public class SecurityAuthApplication {
@@ -19,7 +21,6 @@ public class SecurityAuthApplication {
 		SpringApplication.run(SecurityAuthApplication.class, args);
 	}
 
-	/**
 	@SuppressWarnings("deprecation")
 	@Bean
 	public CommandLineRunner addUserAndRoleDetails(UsersRepository users, RolesRepository roles) {
@@ -40,7 +41,22 @@ public class SecurityAuthApplication {
 			Roles role3 = new Roles();
 			role3.setRole("ROLE_MANAGER");
 			roles.saveAll(Arrays.asList(role1, role2, role3));
+			// assign roles to users
+			Optional<Users> userPraroop = users.findByUsername("praroop");
+			Optional<Roles> adminRole = roles.findByRole("ROLE_ADMIN");
+			if(userPraroop.isPresent() && adminRole.isPresent()) {
+				userPraroop.get().addRole(adminRole.get());
+				users.save(userPraroop.get());
+			}
+			Optional<Users> userGupta = users.findByUsername("gupta");
+			Optional<Roles> customerRole = roles.findByRole("ROLE_CUSTOMER");
+			if(userGupta.isPresent() && customerRole.isPresent()) {
+				userGupta.get().addRole(customerRole.get());
+				users.save(userGupta.get());
+			}
 		};
 	}
-	*/
+
+
+
 }
