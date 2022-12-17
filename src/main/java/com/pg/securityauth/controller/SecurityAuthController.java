@@ -6,8 +6,6 @@ import com.pg.securityauth.exception.SecurityAuthException;
 import com.pg.securityauth.model.AuthRequest;
 import com.pg.securityauth.model.AuthResponse;
 import com.pg.securityauth.util.JwtUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +14,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,9 +38,8 @@ public class SecurityAuthController {
 
         try {
             Authentication auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-            User user = (User) auth.getPrincipal();
-            Users users = new Users(user.getUsername(), user.getPassword(), getUserRoles(user.getAuthorities()));
-            String jwtToken = jwtUtils.generateAccessToken(users);
+            Users user = (Users) auth.getPrincipal();
+            String jwtToken = jwtUtils.generateAccessToken(user);
             return new ResponseEntity<>(new AuthResponse(jwtToken), HttpStatus.OK);
         } catch (BadCredentialsException ex) {
             throw ex;
